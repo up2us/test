@@ -26,56 +26,28 @@ class MyApp extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Container(),
-                  ),
-                  Expanded(
-                    flex: 16,
                     child: Column(
                       children: [
                         Expanded(
                           flex: 1,
-                          child: Container(),
-                        ),
-                        Expanded(
-                          flex: 10,
                           child: SizedBox(
                             width: constraints.maxWidth,
                             child: dateSection
                           ),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
                       ],
                     ),
                   ),
                   Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  Expanded(
-                    flex: 32,
+                    flex: 3,
                     child: Center(child: Column(
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
                         Expanded(
                           flex: 10,
                           child: landscapeContentSection,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
                       ],
                     ),),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
                   ),
                 ],
               );
@@ -85,38 +57,18 @@ class MyApp extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Container(),
-                  ),
-                  Expanded(
-                    flex: 16,
                     child: Column(
                       children: [
                         Expanded(
-                          flex: 2, 
-                          child: Container(),
-                        ),
-                        Expanded(
-                          flex: 16,
+                          flex: 1,
                           child: dateSection,
                         ),
-                        Expanded(
-                          flex: 1, 
-                          child: Container(),
-                        ),
                         Flexible(
-                          flex: 20,
-                          child: portionContentSection,
-                        ),
-                        Expanded(
                           flex: 2,
-                          child: Container(),
+                          child: portionContentSection,
                         ),
                       ]
                     )
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
                   ),
                 ],
               );
@@ -129,7 +81,7 @@ class MyApp extends StatelessWidget {
 }
 
 Widget dateSection = Container(
-  color: Colors.grey,
+  color: Colors.white,
   child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -162,7 +114,7 @@ Widget dateSection = Container(
 Widget landscapeContentSection = Column(
   children: [
     Expanded(
-      flex: 4,
+      flex: 2,
       child: imageSection
     ),
     Expanded(
@@ -174,8 +126,8 @@ Widget landscapeContentSection = Column(
 
 Widget portionContentSection = Column(
   children: [
-    Flexible(
-      flex: 4,
+    Expanded(
+      flex: 2,
       child: imageSection
     ),
     Expanded(
@@ -186,7 +138,7 @@ Widget portionContentSection = Column(
 );
 
 Widget imageSection = Container(
-  color: Colors.blueGrey,
+  color: Colors.white,
   child: Image.network(
     'https://media.istockphoto.com/id/1178017061/photo/woolly-mammoth-set-in-a-winter-scene-environment-16-9-panoramic-format.jpg?s=612x612&w=0&k=20&c=nYVvqx3LSYZjVjCCpb9qlVdnYXbb47jPAmEdW-Cf7VM=',
     fit: BoxFit.contain,
@@ -194,7 +146,7 @@ Widget imageSection = Container(
 );
 
 Widget textSection = Container(
-  color: Colors.blueGrey,
+  color: Colors.white,
   child: Column(
     children: [
       Expanded(
