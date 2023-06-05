@@ -12,13 +12,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'U Calendat',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        colorScheme: ColorScheme.light(
+          primary: const Color(0x00ffffff),
+          secondary: const Color(0x00adb5bd),
+        )
       ),
       home: Scaffold(
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             var r = constraints.maxWidth/constraints.maxHeight;
-
             if (r > 4/3) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -26,28 +28,73 @@ class MyApp extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Column(
+                    child: Row(
                       children: [
                         Expanded(
                           flex: 1,
+                          child: Container(),
+                        ),
+                        Expanded(
+                          flex: 8,
                           child: SizedBox(
                             width: constraints.maxWidth,
-                            child: dateSection
+                            child: dateSection,
                           ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(),
                         ),
                       ],
                     ),
                   ),
                   Expanded(
-                    flex: 3,
-                    child: Center(child: Column(
-                      children: [
-                        Expanded(
-                          flex: 10,
-                          child: landscapeContentSection,
-                        ),
-                      ],
-                    ),),
+                    flex: 4,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Container()
+                          ),
+                          Expanded(
+                            flex: 22,
+                            child: imageSection,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container()
+                          ),
+                          Expanded(
+                            flex: 12,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container()
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: enTextSection,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container()
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: chTextSection,
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Container()
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               );
@@ -60,12 +107,57 @@ class MyApp extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          flex: 1,
-                          child: dateSection,
+                          flex: 21,
+                          child: Container(),
                         ),
-                        Flexible(
-                          flex: 2,
-                          child: portionContentSection,
+                        Expanded(
+                          flex: 147,
+                          child: SizedBox(
+                            width: constraints.maxWidth,
+                            child: dateSection,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 224,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 18,
+                                child: SizedBox(
+                                  width: constraints.maxWidth,
+                                  child: imageSection,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 16,
+                          child: Container(),
+                        ),
+                        Expanded(
+                          flex: 32,
+                          child: enTextSection,
+                        ),
+                        Expanded(
+                          flex: 16,
+                          child: Container(),
+                        ),
+                        Expanded(
+                          flex: 32,
+                          child: chTextSection,
+                        ),
+                        Expanded(
+                          flex: 16,
+                          child: Container(),
                         ),
                       ]
                     )
@@ -81,41 +173,52 @@ class MyApp extends StatelessWidget {
 }
 
 Widget dateSection = Container(
-  color: Colors.white,
-  child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Expanded(
-        flex: 4,
-        child: FittedBox(
-          child: Text(
-            'MAY',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),  
-      ),
-      Expanded(
-        flex: 9, 
-        child: FittedBox(
-          child: Text(
-            '31',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+  child: AspectRatio(
+    aspectRatio: 1,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Container(),
         ),
-      ),
-      Expanded(
-        flex: 4,
-        child: FittedBox(child: Text('Wed'),),
-      ),         
-    ],
-  ),  
+        Expanded(
+          flex: 2,
+          child: FittedBox(child: Text('MAY'),),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(),
+        ),
+        Expanded(
+          flex: 8, 
+          child: FittedBox(child: Text('31'),),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(),
+        ),
+        Expanded(
+          flex: 1,
+          child: FittedBox(child: Text('Wed'),),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(),
+        ),
+      ],
+    ),  
+  ),
 );
 
 Widget landscapeContentSection = Column(
   children: [
     Expanded(
       flex: 2,
-      child: imageSection
+      child: Align(
+        alignment:  Alignment.centerLeft,
+        child: imageSection,
+      )
     ),
     Expanded(
       flex: 1,
@@ -138,10 +241,27 @@ Widget portionContentSection = Column(
 );
 
 Widget imageSection = Container(
-  color: Colors.white,
   child: Image.network(
     'https://media.istockphoto.com/id/1178017061/photo/woolly-mammoth-set-in-a-winter-scene-environment-16-9-panoramic-format.jpg?s=612x612&w=0&k=20&c=nYVvqx3LSYZjVjCCpb9qlVdnYXbb47jPAmEdW-Cf7VM=',
     fit: BoxFit.contain,
+  ),
+);
+
+Widget enTextSection = Container(
+  child: FittedBox(
+    child: Text(
+      'How much did they pay you to give up on your dreams?',
+      style: TextStyle(fontWeight: FontWeight.bold),
+    ),          
+  ),
+);
+
+Widget chTextSection = Container(
+  child: FittedBox(
+    child: Text(
+      '他們付了你多少錢，讓你放棄了你的夢想？',
+      style: TextStyle(color: Colors.grey)
+    ),
   ),
 );
 
