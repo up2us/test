@@ -22,103 +22,23 @@ class MyApp extends StatelessWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             var r = constraints.maxWidth/constraints.maxHeight;
             if (r > 4/3) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
-                        Expanded(
-                          flex: 8,
-                          child: SizedBox(
-                            width: constraints.maxWidth,
-                            child: dateSection,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
-                      ],
-                    ),
+              return Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),
                   ),
-                  Expanded(
-                    flex: 4,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container()
-                          ),
-                          Expanded(
-                            flex: 22,
-                            child: imageSection,
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container()
-                          ),
-                          Expanded(
-                            flex: 12,
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container()
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: enTextSection,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container()
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: chTextSection,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container()
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }
-            else {
-              return Row(
-                children: [
-                  Expanded(
-                    flex: 1,
+                  child: AspectRatio(
+                    aspectRatio: 16/9,  
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: 21,
+                          flex: 1,
                           child: Container(),
                         ),
                         Expanded(
-                          flex: 147,
-                          child: SizedBox(
-                            width: constraints.maxWidth,
-                            child: dateSection,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 224,
+                          flex: 23,
                           child: Row(
                             children: [
                               Expanded(
@@ -126,10 +46,20 @@ class MyApp extends StatelessWidget {
                                 child: Container(),
                               ),
                               Expanded(
-                                flex: 18,
-                                child: SizedBox(
-                                  width: constraints.maxWidth,
-                                  child: imageSection,
+                                flex: 2,
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: dateSection,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 6,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: SizedBox(
+                                    width: constraints.maxWidth,
+                                    child: imageSection,
+                                  ),
                                 ),
                               ),
                               Expanded(
@@ -140,29 +70,114 @@ class MyApp extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 16,
+                          flex: 12,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 9,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 30,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: enTextSection,
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: chTextSection,
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+            else {
+              return Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 3/4,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
                           child: Container(),
                         ),
                         Expanded(
-                          flex: 32,
-                          child: enTextSection,
+                          flex: 18,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 63,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 378,
+                                child: dateSection,
+                              ),
+                              Expanded(
+                                flex: 63,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 672,
+                                child: imageSection,
+                              ),
+                              Expanded(
+                                flex: 96,
+                                child: enTextSection,
+                              ),
+                              Expanded(
+                                flex: 48,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 96,
+                                child: chTextSection,
+                              ),
+                              Expanded(
+                                flex: 96,
+                                child: Container(),
+                              ),
+                            ],
+                          ),
                         ),
                         Expanded(
-                          flex: 16,
+                          flex: 1,
                           child: Container(),
                         ),
-                        Expanded(
-                          flex: 32,
-                          child: chTextSection,
-                        ),
-                        Expanded(
-                          flex: 16,
-                          child: Container(),
-                        ),
-                      ]
+                      ],
                     )
                   ),
-                ],
+                )
               );
             }
           },
@@ -179,31 +194,23 @@ Widget dateSection = Container(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          flex: 2,
+          flex: 1,
           child: Container(),
         ),
         Expanded(
-          flex: 2,
+          flex: 4,
           child: FittedBox(child: Text('MAY'),),
         ),
         Expanded(
-          flex: 2,
-          child: Container(),
-        ),
-        Expanded(
-          flex: 8, 
+          flex: 10, 
           child: FittedBox(child: Text('31'),),
         ),
         Expanded(
-          flex: 2,
-          child: Container(),
-        ),
-        Expanded(
-          flex: 1,
+          flex: 3,
           child: FittedBox(child: Text('Wed'),),
         ),
         Expanded(
-          flex: 3,
+          flex: 2,
           child: Container(),
         ),
       ],
