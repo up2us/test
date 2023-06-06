@@ -42,13 +42,9 @@ class MyApp extends StatelessWidget {
                           child: Row(
                             children: [
                               Expanded(
-                                flex: 1,
-                                child: Container(),
-                              ),
-                              Expanded(
-                                flex: 2,
+                                flex: 3,
                                 child: Align(
-                                  alignment: Alignment.bottomCenter,
+                                  alignment: Alignment.center,
                                   child: dateSection,
                                 ),
                               ),
@@ -74,11 +70,11 @@ class MyApp extends StatelessWidget {
                           child: Row(
                             children: [
                               Expanded(
-                                flex: 9,
+                                flex: 1,
                                 child: Container(),
                               ),
                               Expanded(
-                                flex: 30,
+                                flex: 38,
                                 child: Column(
                                   children: [
                                     Expanded(
