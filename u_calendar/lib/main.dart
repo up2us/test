@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -199,7 +200,12 @@ Widget dateSection = Container(
         ),
         Expanded(
           flex: 10, 
-          child: FittedBox(child: Text('31'),),
+          child: FittedBox(
+            child: Text(
+              '31',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
