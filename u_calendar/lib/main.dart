@@ -214,35 +214,6 @@ Widget dateSection = Container(
   ),
 );
 
-Widget landscapeContentSection = Column(
-  children: [
-    Expanded(
-      flex: 2,
-      child: Align(
-        alignment:  Alignment.centerLeft,
-        child: imageSection,
-      )
-    ),
-    Expanded(
-      flex: 1,
-      child: textSection
-    ),
-  ],
-);
-
-Widget portionContentSection = Column(
-  children: [
-    Expanded(
-      flex: 2,
-      child: imageSection
-    ),
-    Expanded(
-      flex: 1,
-      child: textSection
-    ),
-  ],
-);
-
 Widget imageSection = Container(
   child: Image.network(
     'https://media.istockphoto.com/id/1178017061/photo/woolly-mammoth-set-in-a-winter-scene-environment-16-9-panoramic-format.jpg?s=612x612&w=0&k=20&c=nYVvqx3LSYZjVjCCpb9qlVdnYXbb47jPAmEdW-Cf7VM=',
@@ -265,31 +236,5 @@ Widget chTextSection = Container(
       '他們付了你多少錢，讓你放棄了你的夢想？',
       style: TextStyle(color: Colors.grey)
     ),
-  ),
-);
-
-Widget textSection = Container(
-  color: Colors.white,
-  child: Column(
-    children: [
-      Expanded(
-        flex: 1,
-        child: FittedBox(
-          child: Text(
-            'How much did they pay you to give up on your dreams?',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),          
-        ),
-      ),
-      Expanded(
-        flex: 1,
-        child: FittedBox(
-          child: Text(
-            '他們付了你多少錢，讓你放棄了你的夢想？',
-            style: TextStyle(color: Colors.black.withOpacity(0.6))
-          ),
-        ),
-      ),
-    ],
   ),
 );
