@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'U Calendat',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+          scaffoldBackgroundColor: Colors.white,  
         ),
         home: MyHomePage(),
       ),
@@ -38,7 +39,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Stream.periodic(const Duration(microseconds: 500000)),
+      stream: Stream.periodic(const Duration(seconds: 1)),
       builder: (contxt, snapshot) {
         return Scaffold(
           body: LayoutBuilder(
@@ -268,14 +269,15 @@ class ImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const list = [
-      'https://media.istockphoto.com/id/1178017061/photo/woolly-mammoth-set-in-a-winter-scene-environment-16-9-panoramic-format.jpg?s=612x612&w=0&k=20&c=nYVvqx3LSYZjVjCCpb9qlVdnYXbb47jPAmEdW-Cf7VM=',
-      'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8MTYlM0E5fGVufDB8fDB8fHww&w=1000&q=80',
-      'https://images.unsplash.com/photo-1558637845-c8b7ead71a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8MTYlM0E5fGVufDB8fDB8fHww&w=1000&q=80'
+      'create/img_0609.png',
+      'create/img_0610.png',
+      'create/img_0611.png',
+      'create/img_0612.png',
     ];
     var appState = context.watch<MyAppState>();
 
     return Container(
-      child: Image.network(
+      child: Image.asset(
         list[appState.current.second % list.length],
         fit: BoxFit.contain,
       ),
@@ -286,10 +288,18 @@ class ImageSection extends StatelessWidget {
 class EnTextSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const list = [
+      'Spoken words are more powerful than you think',
+      'To live but not just to exist',
+      'Why not find some time to be kind to yourself',
+      'work for life, not work',
+    ];
+    var appState = context.watch<MyAppState>();
+
     return Container(
       child: FittedBox(
         child: Text(
-          'How much did they pay you to give up on your dreams?',
+          list[appState.current.second % list.length],
           style: TextStyle(fontWeight: FontWeight.bold),
         ),          
       ),
@@ -300,10 +310,18 @@ class EnTextSection extends StatelessWidget {
 class ChTextSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const list = [
+      '說出的話語比你想像的更有力量',
+      '要活著，而不僅僅只是存在',
+      '何不找些時間善待自己',
+      '為人生而工作，而非只是工作',
+    ];
+    var appState = context.watch<MyAppState>();
+
     return Container(
       child: FittedBox(
         child: Text(
-          '他們付了你多少錢，讓你放棄了你的夢想？',
+          list[appState.current.second % list.length],
           style: TextStyle(color: Colors.grey)
         ),
       ),
