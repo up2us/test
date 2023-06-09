@@ -214,6 +214,16 @@ class DateSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) { 
     var appState = context.watch<MyAppState>();
+    Color dateColor = Color(0xFF000000);
+
+    switch (appState.current.weekday) {
+      case DateTime.saturday:
+        dateColor = Color(0xFF7AE582);
+        break;
+      case DateTime.sunday:
+        dateColor = Color(0xFFFF5757);
+        break;
+    }
 
     return AspectRatio(
       aspectRatio: 1,
@@ -233,7 +243,7 @@ class DateSection extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 DateFormat('dd').format(DateTime.now()),
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, color: dateColor),
               ),
             ),
           ),
@@ -242,7 +252,7 @@ class DateSection extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 DateFormat('E').format(appState.getDate()),
-                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                style: TextStyle(color: Colors.grey),
               ),
             ),
           ),
