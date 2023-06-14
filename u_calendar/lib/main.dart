@@ -303,7 +303,7 @@ class DateSection extends StatelessWidget {
             flex: 10,
             child: FittedBox(
               child: Text(
-                DateFormat('dd').format(appState.getDate()),
+                DateFormat('d').format(appState.getDate()),
                 style: TextStyle(fontWeight: FontWeight.bold, color: dateColor),
               ),
             ),
