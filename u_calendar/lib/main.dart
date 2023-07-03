@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:csv/csv.dart';
+import 'dart:io';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +25,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
           scaffoldBackgroundColor: Colors.white,
         ),
-        home: MyHomePage(),
+        home: MyHomePage(storage: Data('assets-list.csv')),
       ),
     );
   }
@@ -27,13 +33,55 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   DateTime current = DateTime.now();
+  Map contentData = {};
+  String _imgPath = '';
+  String _txtPath = '';
+  Map _txt = {};
   bool autoUpdate = true;
-  
+
   DateTime getDate() {
     if (autoUpdate && current.day != DateTime.now().day) {
       enableAutoUpdate();
     }
     return current;
+  }
+
+  String getImgPath(queryKey) {
+    print(queryKey);
+    print(contentData);
+    if (contentData.containsKey(queryKey)) {
+      _imgPath = contentData[queryKey][0];
+    } else {
+      _imgPath = 'default/default.png';
+    }
+    notifyListeners();
+    return _imgPath;
+  }
+
+  String getTxtPath(queryKey) {
+    if (contentData.containsKey(queryKey)) {
+      _txtPath = contentData[queryKey][1];
+      notifyListeners();
+    } else {
+      _txtPath = 'default/default.txt';
+    }
+    return _txtPath;
+  }
+
+  void setTxt(queryKey) {
+    List rawTxt = ['Hello', '你好！'];
+    LineSplitter splitter = LineSplitter();
+    Data(getTxtPath(queryKey)).readStrData().then((value) {
+      rawTxt = splitter.convert(value);
+      print('txtValue = $rawTxt');
+      _txt = {'EN':rawTxt[0].trim(),'CH':rawTxt[1].trim()};
+      notifyListeners();
+    });
+  }
+
+  Map getTxt(queryKey) {
+    setTxt(queryKey);
+    return _txt;
   }
 
   void getNextDate() {
@@ -53,14 +101,32 @@ class MyAppState extends ChangeNotifier {
     current = DateTime.now();
     notifyListeners();
   }
-
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.storage});
+
+  final Data storage;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    final appState = Provider.of<MyAppState>(context, listen: false);
+    widget.storage.readCsvData().then((value) {
+      print('value = $value');
+      appState.contentData = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Stream.periodic(const Duration(minutes: 1)),
+        stream: Stream.periodic(const Duration(days: 1)),
         builder: (contxt, snapshot) {
           return Scaffold(
             body: LayoutBuilder(
@@ -72,7 +138,7 @@ class MyHomePage extends StatelessWidget {
                       children: [
                         Expanded(flex: 1, child: Container(),),
                         Expanded(
-                          flex: 10, 
+                          flex: 10,
                           child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -330,17 +396,11 @@ class DateSection extends StatelessWidget {
 class ImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const list = [
-      'create/img_0609.png',
-      'create/img_0610.png',
-      'create/img_0611.png',
-      'create/img_0612.png',
-    ];
     var appState = context.watch<MyAppState>();
 
     return Container(
       child: Image.asset(
-        list[appState.current.day % list.length],
+        appState.getImgPath(DateFormat('yyyy/M/d').format(appState.getDate())),
         fit: BoxFit.contain,
       ),
     );
@@ -350,18 +410,12 @@ class ImageSection extends StatelessWidget {
 class EnTextSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const list = [
-      'Spoken words are more powerful than you think',
-      'To live but not just to exist',
-      'Why not find some time to be kind to yourself',
-      'work for life, not work',
-    ];
     var appState = context.watch<MyAppState>();
 
     return Container(
       child: FittedBox(
         child: Text(
-          list[appState.current.day % list.length],
+          appState.getTxt(DateFormat('yyyy/M/d').format(appState.getDate()))['EN'],
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -372,18 +426,13 @@ class EnTextSection extends StatelessWidget {
 class ChTextSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const list = [
-      '說出的話語比你想像的更有力量',
-      '要活著，而不僅僅只是存在',
-      '何不找些時間善待自己',
-      '為人生而工作，而非只是工作',
-    ];
     var appState = context.watch<MyAppState>();
 
     return Container(
       child: FittedBox(
-        child: Text(list[appState.current.day % list.length],
-            style: TextStyle(color: Colors.grey)),
+        child: Text(
+          appState.getTxt(DateFormat('yyyy/M/d').format(appState.getDate()))['CH'],
+          style: TextStyle(color: Colors.grey)),
       ),
     );
   }
@@ -392,7 +441,7 @@ class ChTextSection extends StatelessWidget {
 class LastDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>(); 
+    var appState = context.watch<MyAppState>();
 
     return FloatingActionButton.extended(
       onPressed: () {
@@ -407,7 +456,7 @@ class LastDate extends StatelessWidget {
 class NextDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>(); 
+    var appState = context.watch<MyAppState>();
 
     return FloatingActionButton.extended(
       onPressed: () {
@@ -422,7 +471,7 @@ class NextDate extends StatelessWidget {
 class AutoUpdate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>(); 
+    var appState = context.watch<MyAppState>();
 
     return FloatingActionButton.extended(
       onPressed: () {
@@ -431,5 +480,40 @@ class AutoUpdate extends StatelessWidget {
       label: const Text('Auto'),
       icon: const Icon(Icons.sync),
     );
+  }
+}
+
+class Data {
+  String filePath;
+
+  Data(this.filePath);
+
+  Future<String> readStrData() async {
+    print('file path = $filePath');
+    try {
+      String rawData = await rootBundle.loadString(filePath);
+
+      return rawData;
+    } catch (e) {
+      // If encountering an error, return 0
+      return '';
+    }
+  }
+
+  Future<Map> readCsvData() async {
+    print('file path = $filePath');
+    try {
+      final rawData = await rootBundle.loadString(filePath);
+      // Read the file
+
+      List<List<dynamic>> listData = const CsvToListConverter(eol: "\n").convert(rawData);
+      listData.removeAt(0);
+      Map data = { for (var item in listData) item[0].trim() : [item[1].trim(), item[2].trim()]};
+
+      return data;
+    } catch (e) {
+      // If encountering an error, return 0
+      return {};
+    }
   }
 }
