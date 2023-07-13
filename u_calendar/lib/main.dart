@@ -187,208 +187,173 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Stream.periodic(const Duration(days: 1)),
-        builder: (contxt, snapshot) {
-          return Scaffold(
-            body: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                var r = constraints.maxWidth / constraints.maxHeight;
-                if (r > 4 / 3) {
-                  return Center(
-                    child: Column(
-                      children: [
-                        Expanded(flex: 1, child: Container(),),
-                        Expanded(
-                          flex: 10,
-                          child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey.withOpacity(0.2),
-                                width: 1),
-                          ),
-                            child: AspectRatio(
-                            aspectRatio: 16 / 9,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(),
-                                ),
-                                Expanded(
-                                  flex: 23,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: DateSection(),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 6,
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: SizedBox(
-                                            width: constraints.maxWidth,
-                                            child: ImageSection(),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 12,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(),
-                                      ),
-                                      Expanded(
-                                        flex: 38,
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: EnTextSection(),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: ChTextSection(),
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Container(),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      stream: Stream.periodic(const Duration(days: 1)),
+      builder: (contxt, snapshot) {
+        return Scaffold(
+          body: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              var r = constraints.maxWidth / constraints.maxHeight;
+              if (r > 4 / 3) {
+                return Center(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              LastDate(),
-                              AutoUpdate(),
-                              NextDate(),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 23,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: DateSection(),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 6,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: SizedBox(
+                                          width: constraints.maxWidth,
+                                          child: ImageSection(),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 12,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(),
+                                    ),
+                                    Expanded(
+                                      flex: 38,
+                                      child: Column(
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: EnTextSection(),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: ChTextSection(),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Container(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Center(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container()),
-                          Expanded(
-                            flex: 10,
-                            child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),),
-                            child: AspectRatio(
-                                aspectRatio: 3 / 4,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(),
-                                  ),
-                                  Expanded(
-                                    flex: 18,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                          flex: 63,
-                                          child: Container(),
-                                        ),
-                                        Expanded(
-                                          flex: 378,
-                                          child: DateSection(),
-                                        ),
-                                        Expanded(
-                                          flex: 63,
-                                          child: Container(),
-                                        ),
-                                        Expanded(
-                                          flex: 672,
-                                          child: ImageSection(),
-                                        ),
-                                        Expanded(
-                                          flex: 96,
-                                          child: EnTextSection(),
-                                        ),
-                                        Expanded(
-                                          flex: 48,
-                                          child: Container(),
-                                        ),
-                                        Expanded(
-                                          flex: 96,
-                                          child: ChTextSection(),
-                                        ),
-                                        Expanded(
-                                          flex: 96,
-                                          child: Container(),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(),
-                                  ),
-                                ],
-                              )),
-                          ),),
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                LastDate(),
-                                AutoUpdate(),
-                                NextDate(),
-                              ],
-                            ),
-                          ),
+                      ),
                     ],
-                  ));
-                }
-              },
-            ),
-          );
-        });
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: AspectRatio(
+                          aspectRatio: 3 / 4,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                              Expanded(
+                                flex: 18,
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      flex: 63,
+                                      child: Container(),
+                                    ),
+                                    Expanded(
+                                      flex: 378,
+                                      child: DateSection(),
+                                    ),
+                                    Expanded(
+                                      flex: 63,
+                                      child: Container(),
+                                    ),
+                                    Expanded(
+                                      flex: 672,
+                                      child: ImageSection(),
+                                    ),
+                                    Expanded(
+                                      flex: 96,
+                                      child: EnTextSection(),
+                                    ),
+                                    Expanded(
+                                      flex: 48,
+                                      child: Container(),
+                                    ),
+                                    Expanded(
+                                      flex: 96,
+                                      child: ChTextSection(),
+                                    ),
+                                    Expanded(
+                                      flex: 96,
+                                      child: Container(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(),
+                              ),
+                            ],
+                          )
+                        ),
+                      ),
+                    ],
+                  )
+                );
+              }
+            },
+          ),
+        );
+      }
+    );
   }
 }
 
