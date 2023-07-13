@@ -1,12 +1,9 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
-import 'dart:io';
 
 void main() {
   runApp(MyApp());
@@ -33,11 +30,114 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   DateTime current = DateTime.now();
-  Map contentData = {};
-  String _imgPath = '';
-  String _txtPath = '';
-  Map _txt = {};
   bool autoUpdate = true;
+  Map contentData = {
+      "default": [
+          "default/default.png",
+          "Time travling ...",
+          "時空旅行中"
+      ],
+      "2023/7/24": [
+          "movie/Apollo-13_01.jpg",
+          "Houston, we have a problem.",
+          "休斯頓，我們有麻煩了"
+      ],
+      "2023/7/25": [
+          "create/believe-you-can-and-you're-halfway-there.png",
+          "Believe you can and you're halfway there.",
+          "相信自己可以，你就已經成功了一半"
+      ],
+      "2023/7/26": [
+          "movie/Forrest-Gump_01.jpg",
+          "Life was like a box of chocolates. You never know what you're gonna get.",
+          "人生就像一盒巧克力，你永遠不知道會吃到什麼口味"
+      ],
+      "2023/7/27": [
+          "create/education-is-the-most-powerful-weapon-which-you-can-use-to-change-the-world.png",
+          "Education is the most powerful weapon which you can use to change the world.",
+          "教育是你可以用來改變世界的最有力武器"
+      ],
+      "2023/7/28": [
+          "movie/Good-Will-Hunting_01.png",
+          "It’s not your fault.",
+          "這不是你的錯"
+      ],
+      "2023/7/29": [
+          "create/spoken-words-are-more-powerful-than-you-think.png",
+          "Spoken words are more powerful than you think.",
+          "說出的話語比你想像的更有力量"
+      ],
+      "2023/7/30": [
+          "movie/Jerry-Maguire_01.jpg",
+          "You complete me.",
+          "你完整了我的人生"
+      ],
+      "2023/7/31": [
+          "create/the-journey-of-a-thousand-miles-begins-with-a-single-step.png",
+          "The journey of a thousand miles begins with a single step.",
+          "千里之行，始於足下"
+      ],
+      "2023/8/1": [
+          "movie/Star-Wars_01.jpg",
+          "May the Force be with you.",
+          "願原力與你同在"
+      ],
+      "2023/8/2": [
+          "create/the-only-true-wisdom-is-in-knowing-you-know-nothing.png",
+          "The only true wisdom is in knowing you know nothing.",
+          "真正的智慧就在於知道自己一無所知"
+      ],
+      "2023/8/3": [
+          "movie/The-Shawshank-Redemption_01.jpg",
+          "Fear can hold you prisoner. Hope can set you free.",
+          "恐懼囚禁你，希望讓你自由"
+      ],
+      "2023/8/4": [
+          "create/the-only-way-to-do-great-work-is-to-love-what-you-do.png",
+          "The only way to do great work is to love what you do.",
+          "做出卓越工作的唯一方式，就是熱愛所做之事"
+      ],
+      "2023/8/5": [
+          "movie/The-Terminator_01.jpg",
+          "I'll be back.",
+          "我會回來的"
+      ],
+      "2023/8/6": [
+          "create/to-live-but-not-just-to-exist.png",
+          "To live but not just to exist.",
+          "要活著，而不僅僅只是存在"
+      ],
+      "2023/8/7": [
+          "movie/Titanic_01.jpg",
+          "I'll never let go.",
+          "我永遠不會放手"
+      ],
+      "2023/8/8": [
+          "create/where-there-is-hope-there-is-life.png",
+          "Where there is hope, there is life.",
+          "有希望存在的地方，就有生命"
+      ],
+      "2023/8/9": [
+          "movie/Toy-Story-3_01.jpg",
+          "Don’t cry because it’s over; smile because it happened.",
+          "別因為結束而哭泣，要因為曾經發生而微笑"
+      ],
+      "2023/8/10": [
+          "create/why-not-find-some-time-to-be-kind-to-yourself.png",
+          "Why not find some time to be kind to yourself?",
+          "何不找些時間善待自己"
+      ],
+      "2023/8/11": [
+          "movie/Up-In-The-Air_01.jpg",
+          "How much did they pay you to give up on your dreams?",
+          "他們付了你多少錢，讓你放棄了你的夢想？"
+      ],
+      "2023/8/12": [
+          "create/work-for-life-not-work.png",
+          "Work for life, not work.",
+          "為人生而工作，而非只是工作"
+      ],
+  };
 
   DateTime getDate() {
     if (autoUpdate && current.day != DateTime.now().day) {
@@ -46,42 +146,13 @@ class MyAppState extends ChangeNotifier {
     return current;
   }
 
-  String getImgPath(queryKey) {
-    print(queryKey);
-    print(contentData);
+  List getContent(queryDate) {
+    String queryKey = DateFormat('yyyy/M/d').format(queryDate);
     if (contentData.containsKey(queryKey)) {
-      _imgPath = contentData[queryKey][0];
+      return contentData[queryKey];
     } else {
-      _imgPath = 'default/default.png';
+      return contentData["default"];
     }
-    notifyListeners();
-    return _imgPath;
-  }
-
-  String getTxtPath(queryKey) {
-    if (contentData.containsKey(queryKey)) {
-      _txtPath = contentData[queryKey][1];
-      notifyListeners();
-    } else {
-      _txtPath = 'default/default.txt';
-    }
-    return _txtPath;
-  }
-
-  void setTxt(queryKey) {
-    List rawTxt = ['Hello', '你好！'];
-    LineSplitter splitter = LineSplitter();
-    Data(getTxtPath(queryKey)).readStrData().then((value) {
-      rawTxt = splitter.convert(value);
-      print('txtValue = $rawTxt');
-      _txt = {'EN':rawTxt[0].trim(),'CH':rawTxt[1].trim()};
-      notifyListeners();
-    });
-  }
-
-  Map getTxt(queryKey) {
-    setTxt(queryKey);
-    return _txt;
   }
 
   void getNextDate() {
@@ -113,16 +184,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-    final appState = Provider.of<MyAppState>(context, listen: false);
-    widget.storage.readCsvData().then((value) {
-      print('value = $value');
-      appState.contentData = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -400,7 +461,7 @@ class ImageSection extends StatelessWidget {
 
     return Container(
       child: Image.asset(
-        appState.getImgPath(DateFormat('yyyy/M/d').format(appState.getDate())),
+        appState.getContent(appState.getDate())[0],
         fit: BoxFit.contain,
       ),
     );
@@ -415,7 +476,7 @@ class EnTextSection extends StatelessWidget {
     return Container(
       child: FittedBox(
         child: Text(
-          appState.getTxt(DateFormat('yyyy/M/d').format(appState.getDate()))['EN'],
+          appState.getContent(appState.getDate())[1],
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -431,7 +492,7 @@ class ChTextSection extends StatelessWidget {
     return Container(
       child: FittedBox(
         child: Text(
-          appState.getTxt(DateFormat('yyyy/M/d').format(appState.getDate()))['CH'],
+          appState.getContent(appState.getDate())[2],
           style: TextStyle(color: Colors.grey)),
       ),
     );
